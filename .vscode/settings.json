@@ -1,0 +1,5 @@
+{
+    "js/ts.implicitProjectConfig.target": "ESNext",
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+    "typescript.preferences.importModuleSpecifierEnding": "js"
+}
