@@ -16,7 +16,7 @@ app.use(
   expressjwt({
     secret: jwtConfig.jwtSecretKey, // 密钥
     algorithms: ["HS256"], // 算法
-  }).unless({ path: [/^\/api\//] })
+  }).unless({ path: [/^\/api\//, /^\/article\//, /^\/uploads\//] })
 );
 // 错误处理
 app.use(errorMiddleware);
