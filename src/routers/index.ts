@@ -6,8 +6,8 @@ const router = Router();
 
 router.use("/api", loginRouter);
 
-router.use("/uploads", express.static("../../public"));
-
 router.use("/user", userRouter);
+
+router.use("/uploads", express.static("../../public"));
 
 export default router;

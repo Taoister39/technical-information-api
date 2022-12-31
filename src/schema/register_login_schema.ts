@@ -7,9 +7,7 @@ const username: StringSchema = Joi.string()
   .max(10)
   .required();
 
-const password: StringSchema = Joi.string()
-  .pattern(/^[\S]{6,12}$/)
-  .required();
+const password: StringSchema = Joi.string().required();
 
 export const register_schema = {
   body: Joi.object({
