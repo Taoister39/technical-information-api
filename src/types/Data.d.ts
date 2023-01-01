@@ -36,6 +36,7 @@ export interface IssuesData {
   content: string;
   tags: string;
   publish_date: string;
+  like_count: number;
 }
 export interface IssuesRowDataPacket extends RowDataPacket, IssuesData {}
 
@@ -47,6 +48,7 @@ export interface IssuePreviewData {
   publish_date: string;
   user_name: string;
   user_avatar: string;
+  like_count: number;
 }
 export interface IssuePreviewRowDataPacket
   extends RowDataPacket,

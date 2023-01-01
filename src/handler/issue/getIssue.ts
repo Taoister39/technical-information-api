@@ -10,7 +10,7 @@ const getIssueHandler: RequestHandler<
   const id = Number(request.params.id);
 
   const sql =
-    "SELECT issues.id AS issue_id,title,content,tags,publish_date,user_name,user_avatar FROM issues,users WHERE users.id = author_id AND issues.id = ?";
+    "SELECT issues.id AS issue_id,title,content,tags,publish_date,user_name,user_avatar,getIssueLikeCount(issues.id) AS like_count FROM issues,users WHERE users.id = author_id AND issues.id = ?";
 
   const [result] = await db.query<IssuePreviewRowDataPacket[]>(sql, id);
 
