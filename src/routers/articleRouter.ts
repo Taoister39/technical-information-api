@@ -2,7 +2,9 @@ import { Router } from "express";
 import {
   getArticleHandler,
   getCatesHandler,
+  getPublishInfoHandler,
   publishHandler,
+  getArticleListHandler,
 } from "../handler/article/index.js";
 import {
   get_article_list_schema,
@@ -15,7 +17,6 @@ import multer from "multer";
 
 import path from "path";
 import { fileURLToPath } from "url";
-import getArticleListHandler from "../handler/article/getArticleList.js";
 
 const articleRouter = Router();
 
@@ -52,5 +53,7 @@ articleRouter.get(
   validate(get_article_list_schema),
   getArticleListHandler
 );
+
+articleRouter.get("/count/publish", getPublishInfoHandler);
 
 export default articleRouter;

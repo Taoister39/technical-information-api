@@ -4,10 +4,14 @@ import type { RequestHandler } from "express";
 import type HttpSend from "../../types/HttpSend.js";
 import type { UserData, UserRowDataPacket } from "../../types/Data.js";
 
-const getInfoHandler: RequestHandler<void, HttpSend<UserData>> = async (
-  request,
-  response
-) => {
+const getInfoHandler: RequestHandler<
+  void,
+  HttpSend<{
+    user_name: string;
+    user_avatar: string;
+    user_email: string;
+  }>
+> = async (request, response) => {
   const sql = "SELECT user_name,user_email,user_avatar FROM users WHERE id = ?";
   const [result] = await db.query<UserRowDataPacket[]>(sql, request.auth?.id);
 

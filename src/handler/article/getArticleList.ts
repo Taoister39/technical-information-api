@@ -39,22 +39,32 @@ const getArticleListHandler: RequestHandler<
   {
     per_page: string;
     page: string;
+    cate_id?: string;
+    search?: string;
   }
 > = async (request, response) => {
-  const { per_page, page } = request.query;
+  const per_page = Number(request.query.per_page);
+  const page = Number(request.query.page);
+  const cate_id = Number(request.query.cate_id);
+  const search = request.query.search;
 
-  const maxCountSql = "SELECT COUNT(*) AS maxCount FROM articles";
+  const maxCountSql = `SELECT COUNT(*) AS maxCount FROM articles,users WHERE articles.author_id = users.id${
+    cate_id > 3 ? " AND cate_id = " + cate_id : ""
+  }${search !== undefined ? " AND title LIKE '%" + search + "%'" : ""}`;
   const [maxCountResult] = await db.query<RowDataPacket[]>(maxCountSql);
 
   const maxCount = maxCountResult[0].maxCount as number;
 
-  const start = (Number(page) - 1) * Number(per_page);
-  const step = Number(per_page) > maxCount ? maxCount : Number(per_page);
+  const start = (page - 1) * per_page;
+  const step = per_page > maxCount ? maxCount : per_page;
 
   //   console.log(step);
 
-  const sql =
-    "SELECT author_id,articles.id AS article_id,title,cover_url,user_avatar,publish_date,user_name FROM articles,users WHERE users.id = articles.author_id LIMIT ? , ?";
+  const sql = `SELECT author_id,articles.id AS article_id,title,cover_url,user_avatar,publish_date,user_name FROM articles,users WHERE users.id = articles.author_id${
+    cate_id > 3 ? " AND cate_id = " + cate_id : ""
+  }${
+    search !== undefined ? " AND title LIKE '%" + search + "%'" : ""
+  } ORDER By article_id DESC LIMIT ? , ?`;
   const [result] = await db.query<ArticleListDataRow[]>(sql, [start, step]);
 
   return response.send({
