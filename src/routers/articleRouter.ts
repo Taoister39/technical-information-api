@@ -5,6 +5,13 @@ import {
   getPublishInfoHandler,
   publishHandler,
   getArticleListHandler,
+  isLikeHandler,
+  likeHandler,
+  getMessageListHandler,
+  sendMessageHandler,
+  beLikeRankingHandler,
+  isStartHandler,
+  startHandler,
 } from "../handler/article/index.js";
 import {
   get_article_list_schema,
@@ -56,4 +63,51 @@ articleRouter.get(
 
 articleRouter.get("/count/publish", getPublishInfoHandler);
 
+articleRouter.post(
+  "/islike",
+  expressjwt({
+    algorithms: ["HS256"],
+    secret: jwtConfig.jwtSecretKey,
+  }),
+  isLikeHandler
+);
+articleRouter.post(
+  "/like",
+  expressjwt({
+    algorithms: ["HS256"],
+    secret: jwtConfig.jwtSecretKey,
+  }),
+  likeHandler
+);
+
+articleRouter.get("/comment/list", getMessageListHandler);
+
+articleRouter.post(
+  "/comment",
+  expressjwt({
+    algorithms: ["HS256"],
+    secret: jwtConfig.jwtSecretKey,
+  }),
+  sendMessageHandler
+);
+
+articleRouter.get("/belike", beLikeRankingHandler);
+
+articleRouter.post(
+  "/isstart",
+  expressjwt({
+    algorithms: ["HS256"],
+    secret: jwtConfig.jwtSecretKey,
+  }),
+  isStartHandler
+);
+
+articleRouter.post(
+  "/start",
+  expressjwt({
+    algorithms: ["HS256"],
+    secret: jwtConfig.jwtSecretKey,
+  }),
+  startHandler
+);
 export default articleRouter;

@@ -13,6 +13,9 @@ interface ArticleListData {
   author_id: number;
   user_name: string;
   user_avatar: string;
+  start_count: number;
+  comment_count: number;
+  like_count: number;
 }
 
 interface ArticleListApi {
@@ -20,17 +23,7 @@ interface ArticleListApi {
   maxCount: number;
 }
 
-interface ArticleListDataRow extends RowDataPacket {
-  article_id: number;
-  title: string;
-  content: string;
-  cover_url: string;
-  publish_date: string;
-  cate_id: number;
-  author_id: number;
-  user_name: string;
-  user_avatar: string;
-}
+interface ArticleListDataRow extends RowDataPacket, ArticleListData {}
 
 const getArticleListHandler: RequestHandler<
   never,
@@ -60,11 +53,11 @@ const getArticleListHandler: RequestHandler<
 
   //   console.log(step);
 
-  const sql = `SELECT author_id,articles.id AS article_id,title,cover_url,user_avatar,publish_date,user_name FROM articles,users WHERE users.id = articles.author_id${
+  const sql = `SELECT author_id,articles.id AS article_id,title,cover_url,user_avatar,publish_date,user_name,getArticleLikeCount(articles.id) AS like_count,getArticleCommentCount(articles.id) AS comment_count,getArticleStartCount(articles.id) AS start_count FROM articles,users WHERE users.id = articles.author_id${
     cate_id > 3 ? " AND cate_id = " + cate_id : ""
   }${
     search !== undefined ? " AND title LIKE '%" + search + "%'" : ""
-  } ORDER By article_id DESC LIMIT ? , ?`;
+  } ORDER BY article_id DESC LIMIT ? , ?`;
   const [result] = await db.query<ArticleListDataRow[]>(sql, [start, step]);
 
   return response.send({

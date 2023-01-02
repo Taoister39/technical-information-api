@@ -10,7 +10,7 @@ const getArticleHandler: RequestHandler<
   const id = request.params.id;
 
   const sql =
-    "SELECT title,content,cover_url,publish_date,user_name,user_avatar FROM articles,users WHERE articles.id = ? AND users.id = articles.author_id;";
+    "SELECT title,content,cover_url,publish_date,user_name,user_avatar,getArticleLikeCount(articles.id) AS like_count,getArticleCommentCount(articles.id) AS comment_count,getArticleStartCount(articles.id) AS start_count FROM articles,users WHERE articles.id = ? AND users.id = articles.author_id;";
 
   const [result] = await db.query<ArticleRowDataPacket[]>(sql, id);
 

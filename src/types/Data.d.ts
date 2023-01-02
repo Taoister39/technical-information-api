@@ -27,6 +27,9 @@ export interface ArticleData {
   author_id: number;
   user_name: string;
   user_avatar: string;
+  start_count: number;
+  comment_count: number;
+  like_count: number;
 }
 export interface ArticleRowDataPacket extends RowDataPacket, ArticleData {}
 
@@ -62,8 +65,22 @@ export interface IssueMessageListData {
   user_avatar: string;
 }
 
+export interface ArticleMessageListData {
+  publish_date: string;
+  content: string;
+  article_id: number;
+  user_name: string;
+  user_avatar: string;
+}
+
 export interface IssueLikeData {
   id: number;
   like_issue_id: number;
+  user_id: number;
+}
+
+export interface ArticleLikeData {
+  id: number;
+  like_article_id: number;
   user_id: number;
 }
