@@ -16,6 +16,10 @@ import {
 import {
   get_article_list_schema,
   get_article_schema,
+  get_message_list_schema,
+  like_schema,
+  send_message_schema,
+  start_schema,
 } from "../schema/article_schema.js";
 import { validate } from "express-validation";
 import { expressjwt } from "express-jwt";
@@ -77,10 +81,15 @@ articleRouter.post(
     algorithms: ["HS256"],
     secret: jwtConfig.jwtSecretKey,
   }),
+  validate(like_schema),
   likeHandler
 );
 
-articleRouter.get("/comment/list", getMessageListHandler);
+articleRouter.get(
+  "/comment/list",
+  validate(get_message_list_schema),
+  getMessageListHandler
+);
 
 articleRouter.post(
   "/comment",
@@ -88,6 +97,7 @@ articleRouter.post(
     algorithms: ["HS256"],
     secret: jwtConfig.jwtSecretKey,
   }),
+  validate(send_message_schema),
   sendMessageHandler
 );
 
@@ -108,6 +118,7 @@ articleRouter.post(
     algorithms: ["HS256"],
     secret: jwtConfig.jwtSecretKey,
   }),
+  validate(start_schema),
   startHandler
 );
 export default articleRouter;

@@ -41,3 +41,9 @@ export const get_message_list_schema = {
     id,
   }),
 };
+
+export const like_schema = {
+  body: Joi.object({
+    issue_id: id,
+  }),
+};

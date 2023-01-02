@@ -12,6 +12,7 @@ import { validate } from "express-validation";
 import {
   get_issue_schema,
   get_message_list_schema,
+  like_schema,
   publish_schema,
   send_message_schema,
 } from "../schema/issue_schema.js";
@@ -64,6 +65,7 @@ issueRouter.post(
     algorithms: ["HS256"],
     secret: jwtConfig.jwtSecretKey,
   }),
+  validate(like_schema),
   likeHandler
 );
 
