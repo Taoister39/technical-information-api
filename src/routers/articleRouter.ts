@@ -52,7 +52,7 @@ const upload = multer({
 articleRouter.post(
   "/publish",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   upload.single("cover"),
@@ -70,7 +70,7 @@ articleRouter.get("/count/publish", getPublishInfoHandler);
 articleRouter.post(
   "/islike",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   isLikeHandler
@@ -78,7 +78,7 @@ articleRouter.post(
 articleRouter.post(
   "/like",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(like_schema),
@@ -94,7 +94,7 @@ articleRouter.get(
 articleRouter.post(
   "/comment",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(send_message_schema),
@@ -106,7 +106,7 @@ articleRouter.get("/belike", beLikeRankingHandler);
 articleRouter.post(
   "/isstart",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   isStartHandler
@@ -115,7 +115,7 @@ articleRouter.post(
 articleRouter.post(
   "/start",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(start_schema),

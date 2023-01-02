@@ -28,7 +28,7 @@ issueRouter.get("/content/:id", validate(get_issue_schema), getIssueHandler);
 issueRouter.post(
   "/publish",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(publish_schema),
@@ -38,7 +38,7 @@ issueRouter.post(
 issueRouter.post(
   "/comment",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(send_message_schema),
@@ -54,7 +54,7 @@ issueRouter.get(
 issueRouter.post(
   "/islike",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   isLikeHandler
@@ -62,7 +62,7 @@ issueRouter.post(
 issueRouter.post(
   "/like",
   expressjwt({
-    algorithms: ["HS256"],
+    algorithms: jwtConfig.algorithms,
     secret: jwtConfig.jwtSecretKey,
   }),
   validate(like_schema),

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   expressjwt({
     secret: jwtConfig.jwtSecretKey, // 密钥
-    algorithms: ["HS256"], // 算法
+    algorithms: jwtConfig.algorithms, // 算法
   }).unless({
     path: [/^\/api\//, /^\/article\//, /^\/uploads\//, /^\/issue\//],
   })
