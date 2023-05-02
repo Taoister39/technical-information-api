@@ -1,0 +1,22 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3939:3939"
+    depends_on:
+      - db
+  db:
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    ports:
+      - "3301:3306"
+  web:
+    build:
+      context: L:\Universe Go\Web app of front-end\React_JS\technical-information\
+      dockerfile: Dockerfile
+    ports:
+      - "80:5173"
