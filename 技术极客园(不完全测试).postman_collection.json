@@ -1,0 +1,377 @@
+{
+	"info": {
+		"_postman_id": "fa1cad58-e686-4473-8319-1727a86f1541",
+		"name": "技术极客园(不完全测试)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24289223"
+	},
+	"item": [
+		{
+			"name": "注册",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "miku3",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mikumiku",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "mikumiku",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3939/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "mikumiku",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "mikumiku",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3939/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取文章分类列表",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lIjoibWlrdW1pa3UiLCJ1c2VyX3Bhc3N3b3JkIjoiIiwidXNlcl9lbWFpbCI6IiIsInVzZXJfYXZhdGFyIjoiIiwiaWF0IjoxNjcyNDYzMzA4LCJleHAiOjE2NzI0OTkzMDh9.XrOYvwQPVOnQCv-3ak-mkjr9E8TfR7f19No1qXNsVyM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/cates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"cates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取文章",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/content/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"content",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发布文章",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/publish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取文章列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/list?per_page=10&page=1&search=式",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"list"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "cate_id",
+							"value": "4",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "式"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/count/publish?type=moth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"count",
+						"publish"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "moth"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取问答列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/issue/list?per_page=10&page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"issue",
+						"list"
+					],
+					"query": [
+						{
+							"key": "per_page",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取问答",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/issue/content/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"issue",
+						"content",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取问答评论",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/issue/comment/list?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"issue",
+						"comment",
+						"list"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "是否点赞了问答",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcl9uYW1lIjoibWlrdW1pa3UiLCJ1c2VyX3Bhc3N3b3JkIjoiIiwidXNlcl9lbWFpbCI6IiIsInVzZXJfYXZhdGFyIjoiIiwiaWF0IjoxNjcyNTc2Mjc0LCJleHAiOjE2NzI2MTIyNzR9.EbH728Aeun4ORbxFtSr-neuU1y-f6pEwPhQOadMFjkk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/issue/islike",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"issue",
+						"islike"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取文章评论列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3939/article/comment/list?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3939",
+					"path": [
+						"article",
+						"comment",
+						"list"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的收藏",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
