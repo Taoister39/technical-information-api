@@ -1,4 +1,4 @@
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 
 import type { RequestHandler } from "express";
 import type HttpSend from "../../types/HttpSend.js";
@@ -13,7 +13,10 @@ const getInfoHandler: RequestHandler<
   }>
 > = async (request, response) => {
   const sql = "SELECT user_name,user_email,user_avatar FROM users WHERE id = ?";
-  const [result] = await db.query<UserRowDataPacket[]>(sql, request.auth?.id);
+  const [result] = await mysql.query<UserRowDataPacket[]>(
+    sql,
+    request.auth?.id
+  );
 
   if (result.length < 1) {
     return response.send({ message: "获取信息失败", status: 1 });

@@ -6,6 +6,8 @@ import router from "./routers/index.js";
 import errorMiddleware from "./middlewares/error.js";
 import jwtConfig from "./config/jwt.js";
 
+import "dotenv/config";
+
 const app = express();
 // 跨域
 app.use(cors());
@@ -25,6 +27,6 @@ app.use(errorMiddleware);
 
 app.use(router);
 
-app.listen(3939, () => {
+app.listen(process.env.serverPort ?? 3939, () => {
   console.log(`Server start on http://localhost:3939`);
 });

@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import { RowDataPacket } from "mysql2";
 
 interface ArticleListData {
@@ -44,7 +44,7 @@ const getArticleListHandler: RequestHandler<
   const maxCountSql = `SELECT COUNT(*) AS maxCount FROM articles,users WHERE articles.author_id = users.id${
     cate_id > 3 ? " AND cate_id = " + cate_id : ""
   }${search !== undefined ? " AND title LIKE '%" + search + "%'" : ""}`;
-  const [maxCountResult] = await db.query<RowDataPacket[]>(maxCountSql);
+  const [maxCountResult] = await mysql.query<RowDataPacket[]>(maxCountSql);
 
   const maxCount = maxCountResult[0].maxCount as number;
 
@@ -58,7 +58,7 @@ const getArticleListHandler: RequestHandler<
   }${
     search !== undefined ? " AND title LIKE '%" + search + "%'" : ""
   } ORDER BY article_id DESC LIMIT ? , ?`;
-  const [result] = await db.query<ArticleListDataRow[]>(sql, [start, step]);
+  const [result] = await mysql.query<ArticleListDataRow[]>(sql, [start, step]);
 
   return response.send({
     message: "获取文章列表成功",

@@ -1,4 +1,4 @@
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -27,7 +27,7 @@ export const loginHandler: RequestHandler<
 
   const verifySql = `SELECT id,user_name,user_password,user_email,user_avatar FROM users WHERE user_name = ?`;
   //
-  const [nameResult] = await db.query<ByNameQueryData[]>(verifySql, [
+  const [nameResult] = await mysql.query<ByNameQueryData[]>(verifySql, [
     userInfo.username,
   ]);
 

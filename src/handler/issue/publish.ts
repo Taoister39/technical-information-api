@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type { ResultSetHeader } from "mysql2";
 
 const publishHandler: RequestHandler<
@@ -16,7 +16,7 @@ const publishHandler: RequestHandler<
 
   const sql = "INSERT INTO issues SET ?";
 
-  const [result] = await db.query<ResultSetHeader>(sql, {
+  const [result] = await mysql.query<ResultSetHeader>(sql, {
     title,
     content,
     publish_date: new Date(),

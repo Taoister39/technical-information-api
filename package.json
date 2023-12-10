@@ -1,21 +1,21 @@
 {
   "name": "technical-information-back-end",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "技术文章系统-后端",
   "scripts": {
-    "start": "tsc && node ./build/app.js",
+    "start": "tsc && node .\\build\\app.js",
     "build": "tsc",
-    "preview": "node ./build/app.js",
-    "dev": "nodemon -w ./**/* -i ./build -e ts -x npm start"
+    "preview": "dotenv -e .env.production node .\\build\\app.js",
+    "dev": "dotenv -e .env.development -- nodemon -w ./**/* -i ./build -e ts -x npm start"
   },
   "type": "module",
-  "author": "",
+  "author": "Taoister39",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-jwt": "^7.7.7",
     "express-validation": "^4.1.0",

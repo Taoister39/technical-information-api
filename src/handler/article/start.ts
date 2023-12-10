@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 const startHandler: RequestHandler<
@@ -15,11 +15,14 @@ const startHandler: RequestHandler<
   const sql =
     "SELECT id,start_article_id,user_id FROM article_start WHERE user_id = ? AND start_article_id = ?";
 
-  const [result] = await db.query<RowDataPacket[]>(sql, [request.auth?.id, id]);
+  const [result] = await mysql.query<RowDataPacket[]>(sql, [
+    request.auth?.id,
+    id,
+  ]);
 
   if (result.length < 1) {
     const sql = "INSERT INTO article_start SET ?";
-    const [result] = await db.query<ResultSetHeader>(sql, {
+    const [result] = await mysql.query<ResultSetHeader>(sql, {
       user_id: request.auth?.id,
       start_article_id: id,
     });
@@ -30,7 +33,7 @@ const startHandler: RequestHandler<
   } else {
     const sql =
       "DELETE FROM article_start WHERE user_id = ? AND start_article_id = ?";
-    const [result] = await db.query<ResultSetHeader>(sql, [
+    const [result] = await mysql.query<ResultSetHeader>(sql, [
       request.auth?.id,
       id,
     ]);

@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import bcryptjs from "bcryptjs";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type HttpSend from "../../types/HttpSend.js";
 import { UserRowDataPacket } from "../../types/Data.js";
 import { ResultSetHeader } from "mysql2";
@@ -16,7 +16,7 @@ const updatePwdHandler: RequestHandler<never, HttpSend, UpdatePwdBody> = async (
 ) => {
   const querySql = "SELECT * FROM users WHERE id = ?";
 
-  const [queryResult] = await db.query<UserRowDataPacket[]>(
+  const [queryResult] = await mysql.query<UserRowDataPacket[]>(
     querySql,
     request.auth?.id
   );
@@ -33,7 +33,7 @@ const updatePwdHandler: RequestHandler<never, HttpSend, UpdatePwdBody> = async (
   const newPwdHash = bcryptjs.hashSync(request.body.newPwd, 10);
 
   const updateSql = "UPDATE users SET user_password = ? WHERE id = ?";
-  const [updateResult] = await db.query<ResultSetHeader>(updateSql, [
+  const [updateResult] = await mysql.query<ResultSetHeader>(updateSql, [
     newPwdHash,
     request.auth?.id,
   ]);

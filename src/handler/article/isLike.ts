@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import { RowDataPacket } from "mysql2";
 import HttpSend from "../../types/HttpSend.js";
 
@@ -15,7 +15,7 @@ const isLikeHandler: RequestHandler<
   const sql =
     "SELECT id,like_article_id,user_id FROM article_like WHERE user_id = ? AND like_article_id = ?";
 
-  const [result] = await db.query<RowDataPacket[]>(sql, [
+  const [result] = await mysql.query<RowDataPacket[]>(sql, [
     request.auth?.id,
     article_id,
   ]);

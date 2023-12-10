@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type { ResultSetHeader } from "mysql2";
 import path from "path";
 
@@ -20,7 +20,7 @@ const publishHandler: RequestHandler<
   const sql = "INSERT INTO articles SET ?";
   const { title, cate_id, content } = request.body;
 
-  const [result] = await db.query<ResultSetHeader>(sql, {
+  const [result] = await mysql.query<ResultSetHeader>(sql, {
     title,
     cate_id,
     content,

@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type { ResultSetHeader } from "mysql2";
 
 const updateInfoHandler: RequestHandler<
@@ -11,7 +11,7 @@ const updateInfoHandler: RequestHandler<
   const sql = "UPDATE users SET ? WHERE id = ?";
   const body = request.body;
 
-  const [result] = await db.query<ResultSetHeader>(sql, [
+  const [result] = await mysql.query<ResultSetHeader>(sql, [
     { user_email: body.email },
     request.auth?.id,
   ]);

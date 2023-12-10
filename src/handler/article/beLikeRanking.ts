@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import { RowDataPacket } from "mysql2";
 
 interface BeLikeRankingArticle {
@@ -16,7 +16,7 @@ const beLikeRankingHandler: RequestHandler<
   const sql =
     "SELECT was_like_count,user_name FROM be_like_article_view ORDER BY was_like_count DESC LIMIT 0,4";
 
-  const [result] = await db.query<BeLikeRankingArticleRow[]>(sql);
+  const [result] = await mysql.query<BeLikeRankingArticleRow[]>(sql);
 
   return response.send({
     message: "被点赞用户数量成功",

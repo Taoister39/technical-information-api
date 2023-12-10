@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import {
   ArticleMessageListData,
   IssueMessageListData,
@@ -24,7 +24,7 @@ const getMessageListHandler: RequestHandler<
   const sql =
     "SELECT publish_date,content,article_id,user_name,user_avatar FROM article_message,users WHERE users.id = user_id AND article_id = ?";
 
-  const [result] = await db.query<ArticleMessageListRowDataPacke[]>(sql, id);
+  const [result] = await mysql.query<ArticleMessageListRowDataPacke[]>(sql, id);
 
   response.send({
     message: "查询成功",

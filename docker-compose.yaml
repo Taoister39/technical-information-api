@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: mysql.Dockerfile
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --explicit_defaults_for_timestamp=true --lower_case_table_names=1 --max_allowed_packet=128M --sql-mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
     ports:
       - "3301:3306"
   web:
@@ -19,4 +20,7 @@ services:
       context: L:\Universe Go\Web app of front-end\React_JS\technical-information\
       dockerfile: Dockerfile
     ports:
-      - "80:5173"
+      - "80:4173"
+    depends_on:
+      - db
+      - api

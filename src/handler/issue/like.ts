@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { IssueLikeData } from "../../types/Data.js";
 
@@ -18,14 +18,14 @@ const likeHandler: RequestHandler<
   const sql =
     "SELECT id,like_issue_id,user_id FROM issue_like WHERE user_id = ? AND like_issue_id = ?";
 
-  const [result] = await db.query<IssueLikeRowData[]>(sql, [
+  const [result] = await mysql.query<IssueLikeRowData[]>(sql, [
     request.auth?.id,
     id,
   ]);
 
   if (result.length < 1) {
     const sql = "INSERT INTO issue_like SET ?";
-    const [result] = await db.query<ResultSetHeader>(sql, {
+    const [result] = await mysql.query<ResultSetHeader>(sql, {
       user_id: request.auth?.id,
       like_issue_id: id,
     });
@@ -36,7 +36,7 @@ const likeHandler: RequestHandler<
   } else {
     const sql =
       "DELETE FROM issue_like WHERE  user_id = ? AND like_issue_id = ?";
-    const [result] = await db.query<ResultSetHeader>(sql, [
+    const [result] = await mysql.query<ResultSetHeader>(sql, [
       request.auth?.id,
       id,
     ]);

@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type { IssuesData, IssuesRowDataPacket } from "../../types/Data.js";
 import type HttpSend from "../../types/HttpSend.js";
 import { RowDataPacket } from "mysql2";
@@ -20,7 +20,7 @@ const getIssueListHandler: RequestHandler<
 > = async (request, response) => {
   const maxCountSql =
     "SELECT COUNT(*) AS maxCount FROM issues,users WHERE author_id = users.id";
-  const [maxCountResult] = await db.query<RowDataPacket[]>(maxCountSql);
+  const [maxCountResult] = await mysql.query<RowDataPacket[]>(maxCountSql);
   const maxCount = maxCountResult[0].maxCount as number;
 
   const per_page = Number(request.query.per_page);
@@ -31,7 +31,7 @@ const getIssueListHandler: RequestHandler<
   const sql =
     "SELECT issues.id AS issue_id,title,content,tags,publish_date,getIssueLikeCount(issues.id) AS like_count FROM issues,users WHERE author_id = users.id ORDER BY issues.id DESC LIMIT ? , ?";
 
-  const [result] = await db.query<IssuesRowDataPacket[]>(sql, [
+  const [result] = await mysql.query<IssuesRowDataPacket[]>(sql, [
     start,
     per_page,
   ]);

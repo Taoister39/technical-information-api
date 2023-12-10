@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import type HttpSend from "../../types/HttpSend.js";
-import db from "../../db/index.js";
+import mysql from "../../db/mysql.js";
 import type { ResultSetHeader } from "mysql2";
 
 const updateAvatarHandler: RequestHandler<
@@ -12,7 +12,7 @@ const updateAvatarHandler: RequestHandler<
 
   const avatar = request.body.avatar;
 
-  const [result] = await db.query<ResultSetHeader>(sql, [
+  const [result] = await mysql.query<ResultSetHeader>(sql, [
     avatar,
     request.auth?.id,
   ]);
